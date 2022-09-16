@@ -16,6 +16,7 @@ namespace SandBoxWV
     public class MainActivity : AppCompatActivity
     {
         private SandBoxDb _db;
+        private PermissionServcie _permService;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             try
@@ -23,6 +24,8 @@ namespace SandBoxWV
                 base.OnCreate(savedInstanceState);
                 Xamarin.Essentials.Platform.Init(this, savedInstanceState);
                 SetContentView(Resource.Layout.activity_main);
+                _permService = new PermissionServcie(this);
+                _permService.RequestPermissions();
                 _db = new SandBoxDb();
                 var edit = FindViewById<EditText>(Resource.Id.txtURL);
                 var btn = FindViewById<Button>(Resource.Id.btnGo);
@@ -70,6 +73,7 @@ namespace SandBoxWV
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            _permService.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
