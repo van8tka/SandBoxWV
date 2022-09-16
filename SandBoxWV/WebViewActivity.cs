@@ -30,16 +30,15 @@ namespace SandBoxWV.Resources
             }
             catch (Exception er)
             {
+                SbLog.E(er);
                 Toast.MakeText(this, "WebViewActivity: "+ er.Message, ToastLength.Long).Show();
             }
         }
 
-        
-
         private void InitWV()
         {
             _webView = FindViewById<WebView>(Resource.Id.webView);
-            _webView.SetWebViewClient(new WebViewClientClass());
+            _webView.SetWebViewClient(new SbWebViewClient());
             _webView.Settings.JavaScriptEnabled = true;
             _webView.LoadUrl(Intent.GetStringExtra(URL_TAG));
         }
@@ -52,15 +51,6 @@ namespace SandBoxWV.Resources
                 return true;
             }
             return base.OnKeyDown(keyCode, e);
-        }
-
-        class WebViewClientClass : WebViewClient
-        {
-            public override bool ShouldOverrideUrlLoading(WebView view, IWebResourceRequest request)
-            {
-                view.LoadUrl(request.Url.ToString());
-                return false;
-            }
         }
     }
 }
