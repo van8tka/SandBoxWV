@@ -48,7 +48,7 @@ namespace SandBoxWV
             }
             catch(System.Exception e)
             {
-                Toast.MakeText(Application, "MainActivity: "+e.Message, ToastLength.Long).Show();
+                Toast.MakeText(Application, "class MainActivity: "+e.Message, ToastLength.Long).Show();
             }
         }
         private HistoryAdapter _adapter;
